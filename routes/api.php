@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('users/{user}', [\App\Http\Controllers\UsersController::class, 'show']);
+Route::post('users', [\App\Http\Controllers\UsersController::class, 'store']);
+Route::patch('users/{user}', [\App\Http\Controllers\UsersController::class, 'update']);
+
+Route::post('users/{user}/deposit', [\App\Http\Controllers\TransactionsController::class, 'deposit']);
+Route::post('users/{user}/withdraw', [\App\Http\Controllers\TransactionsController::class, 'withdraw']);

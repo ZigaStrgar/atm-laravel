@@ -24,6 +24,6 @@ class User extends Authenticatable
 
     public function canWithdraw($amount): bool
     {
-        return $this->amount >= $amount;
+        return $this->balance >= $amount;
     }
 }
