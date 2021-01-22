@@ -29,9 +29,9 @@ class TransactionsController extends Controller
 
             DB::commit();
         } catch (\Exception $exception) {
-            return response()->json([
+            return response([
                 'message' => $exception->getMessage()
-            ]);
+            ], 500);
         }
 
         return $transaction->fresh();
@@ -42,9 +42,7 @@ class TransactionsController extends Controller
         $data = $request->validated();
 
         if (!$user->canWithdraw($data['amount'])) {
-            return response()->json([
-                'message' => 'Insufficient funds to finish the operation.'
-            ]);
+            return response(['message' => 'Insufficient funds to finish the operation.'], 422);
         }
 
         DB::beginTransaction();
@@ -58,9 +56,9 @@ class TransactionsController extends Controller
         } catch (\Exception $exception) {
             DB::rollBack();
 
-            return response()->json([
+            return response([
                 'message' => $exception->getMessage()
-            ]);
+            ], 500);
         }
 
         return $transaction->fresh();
