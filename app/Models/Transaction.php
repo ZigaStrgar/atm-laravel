@@ -13,6 +13,8 @@ class Transaction extends Model
 
     protected $guarded = [];
 
+    protected $dates = ['created_at', 'modifed_at'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

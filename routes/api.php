@@ -19,3 +19,5 @@ Route::patch('users/{user}', [\App\Http\Controllers\UsersController::class, 'upd
 
 Route::post('users/{user}/deposit', [\App\Http\Controllers\TransactionsController::class, 'deposit']);
 Route::post('users/{user}/withdraw', [\App\Http\Controllers\TransactionsController::class, 'withdraw']);
+
+Route::get('reports', [\App\Http\Controllers\ReportsController::class, 'show']);

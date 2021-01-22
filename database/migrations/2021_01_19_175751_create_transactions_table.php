@@ -17,9 +17,10 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->float('amount', 15, 5);
             $table->enum('type', ['deposit', 'withdraw']);
-            $table->string('country');
+            $table->string('country')->index();
             $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
             $table->timestamps();
+            $table->index(['created_at']);
         });
     }
 
