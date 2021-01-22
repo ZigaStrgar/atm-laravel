@@ -15,7 +15,7 @@ class TransactionsController extends Controller
         DB::beginTransaction();
 
         try {
-            $transaction = $user->transactions()->sharedLock()->create(array_merge($data, ['type' => 'deposit']));
+            $transaction = $user->transactions()->sharedLock()->create(array_merge($data, ['type' => 'deposit', 'country' => $user->country]));
 
             $balanceUpdate = ['balance' => $data['amount'] + $user->balance];
 
@@ -50,7 +50,7 @@ class TransactionsController extends Controller
         DB::beginTransaction();
 
         try {
-            $transaction = $user->transactions()->sharedLock()->create(array_merge($data, ['amount' => - $data['amount'], 'type' => 'withdraw']));
+            $transaction = $user->transactions()->sharedLock()->create(array_merge($data, ['amount' => - $data['amount'], 'type' => 'withdraw', 'country' => $user->country]));
 
             DB::table('users')->lockForUpdate()->where('id', $user->id)->decrement('balance', $data['amount']);
 
