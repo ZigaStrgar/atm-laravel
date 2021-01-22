@@ -30,13 +30,13 @@ class ReportsController extends Controller
         //        	creation_date,
         //        	t.country;
 
-        $report = Transaction::addSelect(['country', DB::raw('DATE(created_at) as `created_date`'), DB::raw('COUNT(DISTINCT(user_id)) as `unique_customers`')])
+        $report = Transaction::addSelect(['country', DB::raw('DATE(created_at) as `creation_date`'), DB::raw('COUNT(DISTINCT(user_id)) as `unique_customers`')])
             ->addSelect(['total_deposits' => Transaction::from(DB::raw('transactions as t'))->whereBetween('created_at', [$from, $to])->whereType('deposit')->whereColumn('country', 'transactions.country')->select(DB::raw('SUM(amount)'))])
             ->addSelect(['total_withdraws' => Transaction::from(DB::raw('transactions as t'))->whereBetween('created_at', [$from, $to])->whereType('withdraw')->whereColumn('country', 'transactions.country')->select(DB::raw('SUM(amount)'))])
             ->addSelect(['number_of_withdraws' => Transaction::from(DB::raw('transactions as t'))->whereBetween('created_at', [$from, $to])->whereType('withdraw')->whereColumn('country', 'transactions.country')->select(DB::raw('COUNT(id)'))])
             ->addSelect(['number_of_deposits' => Transaction::from(DB::raw('transactions as t'))->whereBetween('created_at', [$from, $to])->whereType('deposit')->whereColumn('country', 'transactions.country')->select(DB::raw('COUNT(id)'))])
             ->whereBetween('created_at', [$from, $to])
-            ->groupBy('created_date', 'country')
+            ->groupBy('creation_date', 'country')
             ->get();
 
         return $report;
