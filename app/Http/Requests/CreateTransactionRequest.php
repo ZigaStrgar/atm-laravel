@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\MoreThanValue;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateTransactionRequest extends FormRequest
@@ -24,7 +25,7 @@ class CreateTransactionRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount' => 'required|numeric|min:0'
+            'amount' => ['required', 'numeric', new MoreThanValue(0)]
         ];
     }
 }

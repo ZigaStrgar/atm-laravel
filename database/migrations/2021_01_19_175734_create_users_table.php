@@ -21,9 +21,6 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['female', 'male', 'undefined'])->default('undefined');
             $table->string('country')->nullable()->index();
             $table->float('bonus', 3);
-            $table->float('balance', 15, 5)->default(0);
-            $table->float('bonus_balance', 15, 5)->default(0);
-            $table->rememberToken();
             $table->timestamps();
         });
     }
