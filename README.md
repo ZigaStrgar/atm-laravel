@@ -41,11 +41,11 @@ running it.
 
 ### Basic
 
-The most simple way to run the application is to execute `serve` command.
+The simplest way to run the application is to execute `serve` command.
 
 ```shell
 php artisan serve
 ```
 
-That will start the server listening on port `8000` by default and you are able to use `localhost:8000` as the access
-URL.
+That will start the server listening on port `8000` by default, and you are able to use `localhost:8000` as the access
+URL. If you have Postman setup done as well you are ready to go :)
